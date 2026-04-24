@@ -117,11 +117,49 @@ _(Fig 7. Estructura exterior incubadora a escala.)_
 
 ## IV. ANÁLISIS DE RESULTADOS
 
+### a) Eficacia del sistema desarrollado
 
+El sistema de control de temperatura basado en un controlador PI, es capás de mantener la temperatura dentro de la incubadora en un rango objetivo de 36–37.5 °C en condiciones estables, sin embargo, se presenta una ligera incertidumbre, la resolución de 1 °C y la precisión de ±2 °C del sensor DHT11 introducen una incertidumbre que limita la capacidad del sistema, y su aplicabilidad en un entorno meramente clínico, pues en dicho entorno una incertidumbre de tal magnitud puede suponer en poner en riesgo la salud y la vida del neonato, por dicha razón para una correcta aplicabilidad se necesitaría de reducir la icertidumbre del sensor a ±0.1–0.3 °C; agregando, el control de temperatura por medio de la bombilla es rústico y proporciona un control poco refinado, pues no otorga un control de la temperatura regulado, cosa que no sucede con fuentes de calor especializadas, capaces de modular la cantidad de calor expulsadas según sea lo neceseario. Aunque cabe mencionar que el control basado en PI tiene un mejor manejo en comparación a un modelo ON-OFF puro, pues dicho modelo mantiene la activación e inactivación del sistema sin tener en cuenta la temperatura ambiente, cosa que el sistema desarrollado no pasa por alto.
+
+En cuanto a la medición del peso, tras su calibración con 1Kg, se estimó un error aproximado a 60g, debido a la no linealidad de la galga extensiométrica, para un neonato cuyo pesaje ronda los 2.5Kg, representa un error clínicamente significativo; por lo tanto aún se requiere de mayor refinación si se desea realizar aplicar a un entorno completamente clínico.
+
+### b) Comparación del sistema desarrollado con los que ofrecen los fabricantes en términos de capacidades, limitaciones y precio.
+
+Tras realizar un estimado de la totalidad de los elementos invertidos en la creación de nuestro prototipado (sensores, reles, ESP32...), se estimó un valor aporximado de 250.000 COP, mientras que otros equipos comerciales de Dräguer, Instrumentalia S.A.S. y LEEX Medical tienen precios que oscilan entre 3.000 y 60.000 USD; este valor es justificado pues en términos de capacidades, los equipos comerciales proporcionan control de temperatura con precisión de ±0.1°C, control de humedad, control de oxígeno, alarmas, batería de respaldo, entre muchos otros; todos aspectos que están ausentes en nuestro prototipo. Sin embargo nuestro proyecto, tiene como objetivo comprender las capacidades y necesidades básicas de una incubadora neonatal, por lo que aunque el sistema desarrollado no es apto para uso real,forma una base para la adición de más sistemas a futuro, con el objetivo de acercarse a las versiones comerciales, manteniendo un costo significativamente menor. [4]
+
+### c) ¿Qué otras variables (y por qué) además de las aquí mencionadas son críticas en el monitoreo neonatal?
+
+Además de la temperatura y el peso corporal, hay otras variables fisiológicas y ambientales que resultan críticas para la supervivencia y el desarrollo saludable del neonato, tales como [5]:
+
+• Fecuencia cardiaca (FC): actúa como el principal indicador de salud cardiaca, pues al detectar bradicardia o taquicardia pueden reflejar hipoxia, infección o fallo cardíaco.
+
+• Saturación de oxígeno (SpO₂): es fundamental para evitar hipoxia cerebral (daño neurológico) o hiperoxia (retinopatía del prematuro).
+
+• Frecuencia respiratoria (FR): para la detección de desordenes respiratorios como apneas o sepsis neonatales.
+
+• Presión arterial (PA): previene la hipotensión, que de no ser tratada aumenta el riesgo de hemorragia intraventricular y fallo renal.
+
+• Humedad relativa (HR): es un valor crítico en prematuros para prevenir la pérdida insensible de agua y deshidratación.
+
+• Bilirrubina: niveles excesivos de bilirrubina puede significar ictericia, la cual es a causa de problemas en el hígado o exceso de globulos rojos.
+
+### d) ¿Qué haría falta para convertir el sistema desarrollado en una incubadora neonatal real?
+
+Para convertir el prototipo desarrollado en una incubadora neonatal clínicamente utilizable, se requerirían mejoras en la presición de los sensores empleados, de forma que la incertidumbre sea lo menor posible, y por tanto su presición lo mayor posible, sin contar del refinamiento del control de temperatura; también se requeriría de integrar la funciones y capacidades ausentes de las incubadoras que se mencionaron anteriormente como humedad FC, FR, etc; tambien se requeriría de la seguruidad eléctrica certificada, tal como el IEC 60601-2-19, que es la norma específica para incubadoras neonatales que cubre seguridad eléctrica, precisión térmica, alarmas, estabilidad mecánica y riesgos de quemaduras, de mism modo se debe garantizar e aislamiento del neonato y su protección. También no debe interferir con con otros dispositivos médicos ni ser afectado por ellos (norma IEC 60601-1-2). [6]
+
+Por todo lo anterior se debe de cambiar el diseño mecánico y estructural de la incubadora, pues la cubierta debe de ser de materiales que soporten la desinfección, como policarbonato de grado médico; también debe incluir puertos de acceso, que permita la manipulación del neonato por medio de guantes sin abrir la incubadora; además conforme a la normativa debe poseer aislamiento térmico, sistema  de apertura/cierre y ventilación con filtros. Para su validación, se deben realizar multitud de pruebas específicas de cada aspecto, y posteriormente ser sometidos a ensayos clínicos para adquirir su correspondiente registro sanitario por parte de una entidad regulatoria (INVIMA).
+
+### e) ¿Qué semejanzas hay entre una incubadora neonatal y una servo-cuna?
+
+Tanto la incubadora neonatal como la servo-cuna son dispositivos médicos diseñados para la termorregulación del recién nacido, especialmente de prematuros o neonatos con condiciones críticas; adicionalmente, su control térmico se regula automáticamente en función de la temperatura real del neonato, no solo de la temperatura del ambiente; y no solo eso, sino que las servocunas también son capaces implementar monitores designos vitales de FC, SpO₂, FR y otros elementos de seguridad como alrmas. Por lo annterior su principal diferencia radica en el mecanismo de transferencia de calor: la incubadora utiliza convección forzada, es decir, el aire caliente dentro de una cámara cerrada; mientras que la servo-cuna utiliza radiación infrarroja, calor radiante desde un emisor ubicado por encima del neonato, en una cuna abierta que permite mayor acceso al paciente para procedimientos médicos. [7]
 
 ## V. CONCLUSIONES
 
+Tras finalizar el laboratorio, se logró identificar las partes principales de una incubadora neonatal, y en base a ello desarrollar un sistema que emule el modo de operación de una incubadora neonatal, teniendo la capacidad de regular la temperatura y realizar la lectura de este mismo junto con el del peso del neonato. Adicionalmente, se evaluó la eficacia del sistema de control de temperatura, pues logró mantener la temperatura en un rango deseado de 36–37.5°C aproximadamente, a pesar de ello, las limitaciones del sensor DHT11 presenta una precisión de ±2°C y una resolución de 1°C, lo que introduce una incertidumbre sumamente riesgosa para el monitoreo de un neonato.
 
+Por otro lado, el sistema de pesaje basado en galga extensiométrica de 5kg ermitió estimar el peso con un error relativo de 30g tras la calibración con un patrón de 1000g; la principal limitación se identificó en la no linealidad de la galga, pues su incertidumbre son aspectos que no se ueden permitir en un entorno plenamente clínico, sin embargo, el sistema es útil para estimaciones gruesas y para fines de nuestro aprendizaje.
+
+Por lo anterior, el prototipo de incubadora neonatal a escala desarrollado demuestra los principios fundamentales de termorregulación y control automático, sin embargo, carece de la totalidad de las funciones que una incubadora neonatal debe poseer, por lo que si se desea mejorar el prototipo, se deben asumir más gastos en sensores que reduzcan al máximo posible la incertidumbre, y también que sean capaces de detectar y medir otras variables fundamentales para el monitoreo de los neonatos.
 
 ## VI. BIBLIOGRAFÍA
 
@@ -130,6 +168,14 @@ _(Fig 7. Estructura exterior incubadora a escala.)_
 [2] A. Gonzalez, "¿Cómo funcionan las incubadoras neonatales?", Medium (Ingeniería, Salud y Educación), Mar. 2024.
 
 [3] J. War, "Manual Técnico Incubadora RWT", Olidef, Dec. 2019.
+
+[4] Drägerwerk AG & Co. KGaA, “Caleo: Neonatal incubator – Technical specification,” Dräger Medical GmbH, Lübeck, Germany, 2019.
+
+[5] World Health Organization, Managing newborn problems: A guide for doctors, nurses, and midwives. Geneva, Switzerland: WHO Press, 2003.
+
+[6] International Electrotechnical Commission, "IEC 60601-2-19: Medical electrical equipment – Part 2-19: Particular requirements for the basic safety and essential performance of infant incubators", 2nd ed. Geneva, Switzerland: IEC, 2009.
+
+[7] World Health Organization, Thermal protection of the newborn: A practical guide. Geneva, Switzerland: WHO Press, 1997.
 
 
 
